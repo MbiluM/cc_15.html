@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 card.querySelector(".department").textContent.replace("Department: ", "").trim()
             );
         });
-    }
+    };
 
     // Event listener for bulk update button
     increaseRiskBtn.addEventListener("click", increaseRiskLevels);
