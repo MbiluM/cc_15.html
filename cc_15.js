@@ -20,7 +20,28 @@ document.addEventListener("DOMContentLoaded", () => {
             <p>Level: ${riskLevel}</p>
             <p>Department: ${department}</p>
             <button class="resolve-btn">Resolve</button>`;
-     
+            switch (riskLevel.toLowerCase()) {
+                case "low":
+                    card.style.backgroundColor = "green";
+                    card.style.color = "white";
+                    break;
+                case "medium":
+                    card.style.backgroundColor = "yellow";
+                    card.style.color = "black";
+                    break;
+                case "high":
+                    card.style.backgroundColor = "red";
+                    card.style.color = "white";
+                    break;
+                default:
+                    card.style.backgroundColor = "gray";
+                    card.style.color = "white";
+            
+    
+        riskCard.querySelector(".resolve-btn").addEventListener("click", () => {
+            riskCard.remove();
+        });
+
     }
 }
     riskForm.addEventListener("submit", function(event) {
