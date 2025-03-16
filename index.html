@@ -4,14 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Risk Management Dashboard</title>
+    <style>
+             .riskCard {
+            border: 5px solid #000000;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #cbcaca;
+        }
+    </style>
 </head>
 <body>
 <h1>Risk Management Dashboard</h1>
 <div id = "riskDashboard"></div>
 <form id="riskForm">
 <label for="riskInput">Nwe Risk Item:</label>
-<input type="text" id="riskInpu" required><br><br>
+<input type="text" id="riskInpu" required>
+<label for="riskLevel">Risk Level:</label>
+
+    <select id="riskLevel" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+    </select>
+
 <button type="submit">Add Risk</button>
 </form>
+<div id="riskDashboard"></div>
+<script src="cc_15.js"></script>
 </body>
 </html>
