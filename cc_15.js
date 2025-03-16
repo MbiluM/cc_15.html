@@ -9,19 +9,20 @@ document.addEventListener("DOMContentLoaded", () => {
     function addRiskItem(riskName, riskLevel, department) {
         const riskCard = document.createElement("div");
         riskCard.classList.add("riskCard");
-    
-        riskCard.innerHTML = `
+
+        updateRiskCard(riskCard, riskName, riskLevel, department);
+
+        riskDashboard.appendChild(riskCard);
+    }
+        function updateRiskCard(card, riskName, riskLevel, department) {
+        card.innerHTML = `
             <h3>${riskName}</h3>
             <p>Level: ${riskLevel}</p>
             <p>Department: ${department}</p>
             <button class="resolve-btn">Resolve</button>`;
-
-        riskCard.querySelector(".resolve-btn").addEventListener("click", () => {
-            riskCard.remove();
-        });
-
-        riskDashboard.appendChild(riskCard);
+     
     }
+}
     riskForm.addEventListener("submit", function(event) {
         event.preventDefault();
 
