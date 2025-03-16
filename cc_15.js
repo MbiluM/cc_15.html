@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const riskInput = document.getElementById("riskInput");
     const riskLevelInput = document.getElementById("riskLevel");
     const departmentInput = document.getElementById("department");
+    const increaseRiskBtn = document.getElementById("increaseRiskLevels");
+
     console.log("Risk Dashboard Loaded");
 
     function addRiskItem(riskName, riskLevel, department) {
@@ -14,36 +16,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
         riskDashboard.appendChild(riskCard);
     }
-        function updateRiskCard(card, riskName, riskLevel, department) {
-        card.innerHTML = `
-            <h3>${riskName}</h3>
-            <p>Level: ${riskLevel}</p>
-            <p>Department: ${department}</p>
-            <button class="resolve-btn">Resolve</button>`;
-            switch (riskLevel.toLowerCase()) {
-                case "low":
-                    card.style.backgroundColor = "green";
-                    card.style.color = "white";
-                    break;
-                case "medium":
-                    card.style.backgroundColor = "yellow";
-                    card.style.color = "black";
-                    break;
-                case "high":
-                    card.style.backgroundColor = "red";
-                    card.style.color = "white";
-                    break;
-                default:
-                    card.style.backgroundColor = "gray";
-                    card.style.color = "white";
-            
-    
-        riskCard.querySelector(".resolve-btn").addEventListener("click", () => {
-            riskCard.remove();
-        });
 
+    function updateRiskCard(card, riskName, riskLevel, department) {
+        card.innerHTML = `
+            <h3 class="riskName">${riskName}</h3>
+            <p class="riskLevel">Level: ${riskLevel}</p>
+            <p class="department">Department: ${department}</p>
+            <button class="resolve-btn">Resolve</button>`;
+
+        switch (riskLevel.toLowerCase()) {
+            case "low":
+                card.style.backgroundColor = "green";
+                card.style.color = "black";
+                break;
+            case "medium":
+                card.style.backgroundColor = "yellow";
+                card.style.color = "black";
+                break;
+            case "high":
+                card.style.backgroundColor = "red";
+                card.style.color = "black";
+                break;
+            default:
+                card.style.backgroundColor = "gray";
+                card.style.color = "black";
+        }
+
+        // Add event listener to remove risk card
+        card.querySelector(".resolve-btn").addEventListener("click", () => {
+            card.remove();
+        });
     }
-}
+
     riskForm.addEventListener("submit", function(event) {
         event.preventDefault();
 
@@ -54,9 +58,35 @@ document.addEventListener("DOMContentLoaded", () => {
         if (riskName && riskLevel && department) {
             addRiskItem(riskName, riskLevel, department);
             riskInput.value = "";
+            riskLevelInput.value = "";
             departmentInput.value = "";
         }
-    })
-    addRiskItem("Data Breach", "High", "IT");
-    addRiskItem("Supply Chain Disruption", "Medium", "Operations");
+    });
+
+    function increaseRiskLevels() {
+        document.querySelectorAll(".riskCard").forEach((card) => {
+            let riskLevelElement = card.querySelector(".riskLevel");
+            let currentLevel = riskLevelElement.textContent.replace("Level: ", "").trim();
+
+            let newLevel = currentLevel;
+            if (currentLevel.toLowerCase() === "low") newLevel = "Medium";
+            else if (currentLevel.toLowerCase() === "medium") newLevel = "High";
+
+            riskLevelElement.textContent = `Level: ${newLevel}`;
+            updateRiskCard(
+                card,
+                card.querySelector(".riskName").textContent,
+                newLevel,
+                card.querySelector(".department").textContent.replace("Department: ", "").trim()
+            );
+        });
+    }
+
+    // Event listener for bulk update button
+    increaseRiskBtn.addEventListener("click", increaseRiskLevels);
+
+    // Test Cases
+    addRiskItem("Employee Retention", "Low", "HR");
+    addRiskItem("Cybersecurity Threat", "High", "IT");
+    addRiskItem("Budget Cuts", "Medium", "Finance");
 });
